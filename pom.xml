@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.dmitry.jooq.postgis.spatial</groupId>
+    <groupId>com.diamondq.alt.net.dmitry.jooq.postgis.spatial</groupId>
     <artifactId>jooq-postgis-spatial</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
@@ -58,6 +58,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${compileSource}</source>
                     <target>${compileSource}</target>
@@ -94,17 +95,40 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <executions>
+                    <execution>
+                        <id>injected-nexus-deploy</id>
+                        <phase />
+                        <configuration>
+                            <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>            
         </plugins>
     </build>
-
+    <distributionManagement>
+        <repository>
+          <id>dq-release</id>
+          <url>https://nexus.diamondq.com/repository/maven-public-releases/</url>
+        </repository>
+    </distributionManagement>
     <properties>
         <compileSource>1.8</compileSource>
-        <kotlin.version>1.0.0</kotlin.version>
+        <kotlin.version>1.5.0-RC</kotlin.version>
         <postgresql.version>9.4-1201-jdbc4</postgresql.version>
         <jooq.version>3.7.3</jooq.version>
         <jts.version>1.13</jts.version>
         <postgis-jdbc.version>2.2.0</postgis-jdbc.version>
+        <nexus.serverId>dq-release</nexus.serverId>
+        <nexus.url>https://nexus.diamondq.com/repository/maven-public-releases</nexus.url>
+        <nexus.skip.staging>true</nexus.skip.staging>
+        <scm.project>common-maven</scm.project>
+        
     </properties>
-
 
 </project>
